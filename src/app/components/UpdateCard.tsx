@@ -1,5 +1,6 @@
-"use client";
 
+"use client";
+import React, { useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { Props } from "@/Types";
 import Image from "next/image";
@@ -10,8 +11,43 @@ export default function UpdateCard({
   logo,
   content,
   videoUrl,
-  status, //
-}: Props) {
+  status,
+  likes=0,
+  // comments=0, 
+}: Props) {  const [likeCount, setLikeCount] = useState(likes);
+    const [dislikeCount, setDislikeCount] = useState(0);
+    const [userAction, setUserAction] = useState<"liked" | "disliked" | null>(null);
+
+    const handleLike = () => {
+        if (userAction === "liked") {
+            setLikeCount(likeCount - 1);
+            setUserAction(null);
+        } else {
+            if (userAction === "disliked") {
+                setDislikeCount(dislikeCount - 1);
+            }
+            setLikeCount(likeCount + 1);
+            setUserAction("liked");
+        }
+    };
+
+    const handleDislike = () => {
+        if (userAction === "disliked") {
+            setDislikeCount(dislikeCount - 1);
+            setUserAction(null);
+        } else {
+            if (userAction === "liked") {
+                setLikeCount(likeCount - 1);
+            }
+            setDislikeCount(dislikeCount + 1);
+            setUserAction("disliked");
+        }
+    };
+
+
+
+
+
   return (
     <div className="">
       <div className="flex gap-4 text-black">
@@ -45,7 +81,7 @@ export default function UpdateCard({
       </video>
     </div>
   </div>
-)}
+)};
 
 
 
@@ -56,32 +92,39 @@ export default function UpdateCard({
                 <span className=" text-green-700 text-sm text-nowrap px-2 py-0.5 rounded-full">
                   ✔ Verified
                 </span>
-              )}
+              )};
               {status === "unverified" && (
                 <span className=" text-red-700  text-sm  px-2 text-nowrap py-0.5 rounded-full">
                   ✖ Unverified
                 </span>
-              )}
+              )};
             </div>
 
             {/* Likes & Comments */}
-            <div className="flex gap-2 mt-1 text-gray-500">
-              <div className="flex items-center gap-1">
-                <button className="hover:bg-gray-200  text-2xl p-1  rounded-md">
-                  <BiLike />
-                </button>{" "}
-                <span className="">0</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <button className="hover:bg-gray-200 text-2xl p-1 rounded-md">
-                  <BiDislike />{" "}
-                </button>
-                <span className="">0</span>
+        
+                        {/* Likes & Comments */}
+                        <div className="flex gap-2 mt-1 text-gray-500">
+                           <div className="flex items-center gap-1">
+                            <button
+                                className={`p-1 text-2xl rounded-md cursor-pointer flex items-center gap-1 ${userAction === "liked" ? "bg-black-100 text-black-600" : "hover:bg-gray-200"
+                                    }`}
+                                onClick={handleLike}>
+                                <BiLike />
+                           <span>{likeCount}</span>
+                            </button>
+                            <button
+                                className={`p-1 text-2xl rounded-md cursor-pointer flex items-center gap-1 ${userAction === "disliked" ? "bg-black100 text-black-600" : "hover:bg-gray-200"
+                                    }`}
+                                onClick={handleDislike}>
+                                <BiDislike />
+                                <span>{dislikeCount}</span>
+                            </button>
+                      
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+  </div>
   );
-}
+}; 

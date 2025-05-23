@@ -1,7 +1,8 @@
-export interface CommentCardProps {
+export interface UpdateItem{
     commentContent:string,
     likes?:number,
     dislikes?:number,
+ 
 }
 
 export type Props = {
@@ -15,4 +16,5 @@ export type Props = {
     likes?: number;
     dislikes?: number; // 👈 add this
     comments?: number;
-};
+}
+
