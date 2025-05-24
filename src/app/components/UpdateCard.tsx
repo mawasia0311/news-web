@@ -13,7 +13,7 @@ export default function UpdateCard({
   videoUrl,
   status,
   likes=0,
-  // comments=0, 
+  comments=0, //
 }: Props) {  const [likeCount, setLikeCount] = useState(likes);
     const [dislikeCount, setDislikeCount] = useState(0);
     const [userAction, setUserAction] = useState<"liked" | "disliked" | null>(null);
