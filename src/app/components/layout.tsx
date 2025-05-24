@@ -7,8 +7,10 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="max-w-[1200px] mx-auto px-4">
-      {children}
+    <div className="bg-gray-50">
+      <div className='max-w-[1000px] mx-auto'>
+        {children}
+      </div>
     </div>
   );
 }
