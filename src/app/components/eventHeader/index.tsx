@@ -31,7 +31,7 @@ const Header = () => {
                 <Link href={`/news/${videoId}/detail`}>
                     <video
                         src={videoUrl}
-                        className="w-32 h-20 rounded shadow cursor-pointer"
+                        className="w-64 h-36 rounded cursor-pointer"
                         muted
                         autoPlay
                         loop

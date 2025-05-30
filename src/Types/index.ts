@@ -17,6 +17,7 @@ export type Props = {
   likes?: number;
   dislikes?: number;   // add dislikes here for the update card too
   comments?: number;
+   newsId: string; // ✅ Add this line
 }
 
 
