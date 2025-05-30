@@ -15,7 +15,7 @@ const CommentSider = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-2xl p-4 sm:p-5 text-base sm:text-lg ">
+    <div className="w-full max-w-screen-md mx-auto bg-white rounded-2xl p-4 sm:p-5 text-base">
       <h1 className="text-lg sm:text-xl font-bold mb-4">Comments</h1>
 
       <div className="flex justify-between items-center text-gray-600 relative mb-4">

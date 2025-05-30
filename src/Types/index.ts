@@ -6,15 +6,22 @@ export interface UpdateItem{
 }
 
 export type Props = {
-    time: string;
-    source: string;
-    logo?: string;
-    content: string;
-    tags?: string[];
-    videoUrl?: string;
-    status?: "verified" | "unverified";
-    likes?: number;
-    dislikes?: number; // 👈 add this
-    comments?: number;
+    id: string;
+  time: string;
+  source: string;
+  logo?: string;
+  content: string;
+  tags?: string[]; // optional tags array
+  videoUrl?: string;
+  status?: "verified" | "unverified";
+  likes?: number;
+  dislikes?: number;   // add dislikes here for the update card too
+  comments?: number;
 }
 
+
+export interface CommentCardProps {
+  commentContent: string;
+  likes: number;
+  dislikes: number;
+}
