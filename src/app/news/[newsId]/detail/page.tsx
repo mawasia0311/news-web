@@ -97,8 +97,8 @@ export default function VideoDetailPage(props: Props) {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <div className="flex justify-between items-center">
-                <div className="bg-red-600 w-fit text-white px-4 py-2 flex items-center justify-between">
+            <div className="flex justify-between border-t-4 border-red-600 items-center">
+                <div className="bg-red-600 w-fit rounded-br-lg text-white px-4 py-2 flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                         <Clock className="w-4 h-4" />
                         <span className="text-sm font-medium">19:50 - 19 May, 2025</span>
@@ -116,24 +116,20 @@ export default function VideoDetailPage(props: Props) {
             <div className="max-w-2xl mx-auto bg-white">
                 {/* Featured Story */}
                 <div className="p-4 border-b border-gray-200">
-                    <div className="flex items-start space-x-3 mb-3">
-                        <div className="flex-shrink-0">
-                            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm font-bold">BBC</span>
-                            </div>
-                        </div>
-                        <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-1">
-                                <span className="text-sm font-medium text-gray-900">BBC</span>
-                                <CheckCircle className="w-4 h-4 text-green-500" />
-                                <span className="text-xs text-green-600">Verified</span>
-                            </div>
-                        </div>
-                    </div>
-
                     <h1 className="text-lg font-bold text-gray-900 mb-3">
                         IAF C130J aircraft departs from Jeddah, Saudi Arabia for Sudan
                     </h1>
+
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-xs font-medium bg-gray-200 text-black px-2 py-0.5 rounded-full">
+                            BBC
+                        </span>
+                        <span className="text-xs font-medium bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                            ✔ Verified
+                        </span>
+                    </div>
+
+
 
                     {/* Video Placeholder */}
                     <div className="relative bg-gray-800 rounded-lg mb-4 aspect-video flex items-center justify-center">
