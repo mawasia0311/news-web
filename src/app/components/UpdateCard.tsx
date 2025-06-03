@@ -1,14 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { Props } from "@/Types";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Modal from "../components/Modal";
+
+type UpdateCardProps = Props & {
+  showLine?: boolean;
+};
 
 export default function UpdateCard({
-  id, // timelineId
+  id,
   time,
   source,
   logo,
@@ -19,18 +23,17 @@ export default function UpdateCard({
   likes = 0,
   dislikes = 0,
   comments = 0,
-}: Props) {
+  showLine = true,
+}: UpdateCardProps) {
   const pathname = usePathname();
-
-  // Extract newsId from path e.g. /news/operation-sindoor/detail
   const newsId = pathname.split("/")[2] || "unknown-news";
-
   const videoId = videoUrl?.split("/").pop()?.replace(".mp4", "") || "";
   const isActive = pathname.includes(videoId);
 
   const [likeCount, setLikeCount] = useState(likes);
   const [dislikeCount, setDislikeCount] = useState(dislikes);
   const [userAction, setUserAction] = useState<"liked" | "disliked" | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleLike = () => {
     if (userAction === "liked") {
@@ -54,16 +57,22 @@ export default function UpdateCard({
     }
   };
 
+  const handleModalClose = () => setShowModal(false);
+
   return (
-    <Link href={`/news/${newsId}/timeline/${id}`} passHref>
+    <Fragment>
       <div
-        className={`w-full p-4 rounded-lg cursor-pointer `}
+        onClick={() => setShowModal(true)}
+        className="w-full p-4 rounded-lg cursor-pointer"
       >
         <div className="flex flex-col sm:flex-row gap-4 text-black">
-          {/* Time */}
-          <div className="flex sm:flex-col items-center sm:items-center min-w-[50px]">
-            <div className="text-xs sm:text-sm text-gray-500 text-center">{time}</div>
-            <div className="hidden sm:block w-0.5 h-full bg-gray-200 my-1" />
+
+          {/* Time and vertical line */}
+          <div className="relative flex sm:flex-col items-center min-w-[50px]">
+            <div className="text-xs sm:text-sm text-gray-500 text-center z-10">{time}</div>
+            {showLine && (
+              <div className="hidden sm:block absolute top-[1.5rem] bottom-[-1.5rem] left-1/2 w-0.5 bg-gray-300" />
+            )}
           </div>
 
           {/* Content */}
@@ -83,7 +92,6 @@ export default function UpdateCard({
 
             <p className="text-sm sm:text-base font-medium text-gray-800">{content}</p>
 
-            {/* Video preview */}
             {videoUrl && (
               <div className="mt-2">
                 <div className="w-full max-w-xs sm:max-w-[200px] h-[120px] rounded-lg overflow-hidden">
@@ -97,58 +105,57 @@ export default function UpdateCard({
               </div>
             )}
 
-            {/* Footer row */}
-            <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 mt-2">
-              {/* Status */}
-              <div className="flex flex-wrap gap-2 text-xs">
+            {/* Footer */}
+            <div className="flex flex-wrap items-center justify-between gap-3 mt-2 text-sm">
+              {/* Left: Status + Reactions */}
+              <div className="flex flex-wrap items-center gap-3">
                 {status === "verified" && (
-                  <span className="text-green-700 text-sm px-2 py-0.5 rounded-full bg-green-50">
+                  <span className="text-green-700 px-2 py-0.5 rounded-full bg-green-50">
                     ✔ Verified
                   </span>
                 )}
                 {status === "unverified" && (
-                  <span className="text-red-700 text-sm px-2 py-0.5 rounded-full bg-red-50">
+                  <span className="text-red-700 px-2 py-0.5 rounded-full bg-red-50">
                     ✖ Unverified
                   </span>
                 )}
-              </div>
 
-              {/* Likes & Dislikes */}
-              <div className="flex gap-2 text-gray-500">
-                <button
-                  className={`p-1 text-xl rounded-md flex items-center gap-1 ${
-                    userAction === "liked"
-                      ? "bg-gray-200 text-black"
-                      : "hover:bg-gray-100"
-                  }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleLike();
-                  }}
-                >
-                  <BiLike />
-                  <span className="text-sm">{likeCount}</span>
-                </button>
+                {/* Like/Dislike */}
+                <div className="flex gap-4 sm:ml-4 text-gray-500">
+                  <button
+                    className={`p-1 text-lg rounded-md flex items-center gap-1 ${
+                      userAction === "liked" ? "bg-gray-200 text-black" : "hover:bg-gray-100"
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLike();
+                    }}
+                  >
+                    <BiLike />
+                    <span>{likeCount}</span>
+                  </button>
 
-                <button
-                  className={`p-1 text-xl rounded-md flex items-center gap-1 ${
-                    userAction === "disliked"
-                      ? "bg-gray-200 text-black"
-                      : "hover:bg-gray-100"
-                  }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleDislike();
-                  }}
-                >
-                  <BiDislike />
-                  <span className="text-sm">{dislikeCount}</span>
-                </button>
+                  <button
+                    className={`p-1 text-lg rounded-md flex items-center gap-1 ${
+                      userAction === "disliked" ? "bg-gray-200 text-black" : "hover:bg-gray-100"
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDislike();
+                    }}
+                  >
+                    <BiDislike />
+                    <span>{dislikeCount}</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Modal */}
+        <Modal isVisible={showModal} onClose={handleModalClose} />
       </div>
-    </Link>
+    </Fragment>
   );
 }

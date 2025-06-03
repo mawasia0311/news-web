@@ -29,8 +29,8 @@ const TimelineDetailPage = () => {
           </div>
         </div>
         <div>
-          <button className="text-white cursor-pointer hover:text-gray-200">
-            <span className="text-lg text-black">×</span>
+          <button className="text-white cursor-pointer hover:text-gray-200 p-2 bg-gray-100 w-10 h-10">
+            <span className="text-black text-lg select-none">×</span>
           </button>
         </div>
       </div>

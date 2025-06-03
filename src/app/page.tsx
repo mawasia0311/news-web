@@ -2,24 +2,27 @@ import Header from "./components/eventHeader";
 import Timeline from "./components/TimeLine";
 import CommentSider from "./components/CommentSider";
 import Layout from './components/layout';
+
 export default function Home() {
   return (
     <Layout>
-    <main className="w-full bg-gray-50 px-2 sm:px-4 py-4 sm:py-6">
-      <Header />
+      <main className="w-full px-2 sm:px-4 py-4 sm:py-6">
+        {/* Always on top */}
+        <Header />
 
-      <div className="flex flex-row gap-3 mt-6 w-full">
+        {/* Responsive layout: column on mobile, row on larger screens */}
+        <div className="flex flex-col lg:flex-row gap-4 mt-6 w-full">
+          {/* Timeline section */}
+          <div className="w-full lg:flex-[2] min-w-0 ">
+            <Timeline />
+          </div>
 
-        <div className="flex-[2] min-w-0 bg-white rounded-2xl">
-          <Timeline />
+          {/* CommentSider section */}
+          <div className="w-full lg:flex-[1] min-w-0">
+            <CommentSider />
+          </div>
         </div>
-
-  
-        <div className="flex-[1] min-w-0">
-          <CommentSider />
-        </div>
-      </div>
-    </main>
+      </main>
     </Layout>
   );
 }
