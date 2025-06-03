@@ -62,8 +62,8 @@ export default function UpdateCard({
   return (
     <Fragment>
       <div
-        onClick={() => setShowModal(true)}
-        className="w-full p-4 rounded-lg cursor-pointer"
+       
+        className="w-full p-4 rounded-lg"
       >
         <div className="flex flex-col sm:flex-row gap-4 text-black">
 
@@ -77,7 +77,7 @@ export default function UpdateCard({
 
           {/* Content */}
           <div className="flex-1 space-y-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 cursor-pointer"  onClick={() => setShowModal(true)}>
               {logo && (
                 <Image
                   src={logo}
@@ -121,7 +121,7 @@ export default function UpdateCard({
                 )}
 
                 {/* Like/Dislike */}
-                <div className="flex gap-4 sm:ml-4 text-gray-500">
+                <div className="flex gap-4 sm:ml-4 text-gray-500 cursor-pointer">
                   <button
                     className={`p-1 text-lg rounded-md flex items-center gap-1 ${
                       userAction === "liked" ? "bg-gray-200 text-black" : "hover:bg-gray-100"

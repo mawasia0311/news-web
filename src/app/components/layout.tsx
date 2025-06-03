@@ -7,7 +7,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="max-w-[1200px] mx-auto px-4">
+    <div className="max-w-screen-xl mx-auto">
       {children}
     </div>
   );
